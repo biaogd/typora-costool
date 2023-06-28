@@ -24,7 +24,7 @@ var config CosConfig
 
 var client *cos.Client
 
-func init() {
+func loadConfig() {
 	configFilePath := GetConfigFile()
 	configFileBuf, err := os.ReadFile(configFilePath)
 	if err != nil {
@@ -46,6 +46,7 @@ func init() {
 }
 
 func UploadFile(filePath string) string {
+	loadConfig()
 	fileExt := path.Ext(filePath)
 	fileName := GeneralUUID() + fileExt
 	fileKey := config.KeyPrefix + "/" + fileName
